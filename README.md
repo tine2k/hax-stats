@@ -1,0 +1,2 @@
+# hax-stats
+Haxball Statistics
