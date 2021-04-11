@@ -11,7 +11,7 @@ const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
 
-db.defaults({ games: [], recordings: [], id: 0 }).write();
+db.defaults({ games: [], recordings: [], idSeq: 0 }).write();
 
 app.use(express.json());
 app.use(express.static('frontend/dist'));
@@ -23,8 +23,8 @@ const corsOptions = {
 };
 app.options('/games', cors());
 app.post('/games', cors(corsOptions), basicAuth(config), (req, res) => {
-    const nextId = db.get('id').value();
-    db.update('id', n => n + 1).write();
+    const nextId = db.get('idSeq').value();
+    db.update('idSeq', n => n + 1).write();
     db.get('games')
         .push({id: nextId, ...req.body, rec: undefined})
         .write();
