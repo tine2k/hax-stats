@@ -26,11 +26,12 @@ app.post('/games', cors(corsOptions), basicAuth(config), (req, res) => {
     const nextId = db.get('id').value();
     db.update('id', n => n + 1).write();
     db.get('games')
-        .push({id: nextId, ...req.body})
+        .push({id: nextId, ...req.body, rec: undefined})
         .write();
     db.get('recordings')
         .push({id: nextId, data: req.body.rec})
         .write();
+    console.log(`game saved: $nextId`);
     res.send('' + nextId);
 });
 
