@@ -31,7 +31,7 @@ app.post('/games', cors(corsOptions), basicAuth(config), (req, res) => {
     db.get('recordings')
         .push({id: nextId, data: req.body.rec})
         .write();
-    console.log(`game saved: $nextId`);
+    console.log(`game saved: ${nextId}`);
     res.send('' + nextId);
 });
 
