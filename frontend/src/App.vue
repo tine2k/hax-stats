@@ -1,26 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Title>High Scores</Title>
+  <div class="grid gap-2 p-2 grid-cols-2">
+    <Dialog title="Top Scorer"></Dialog>
+  </div>
+  <Title>Game List</Title>
+  <div class="grid gap-2 p-2 grid-cols-2">
+    <GameList @select-game="this.game = $event"></GameList>
+    <GameDetail v-if="game" v-bind:game="game"></GameDetail>
+    <Goals v-if="game" v-bind:game="game"></Goals>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GameList from '@/components/GameList';
+import GameDetail from '@/components/GameDetail';
+import Goals from '@/components/Goals';
+import Dialog from '@/components/Dialog';
+import Title from '@/components/Title';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    Dialog,
+    GameList,
+    GameDetail,
+    Goals,
+    Title
+  },
+  data() {
+    return {
+      game: undefined
+    };
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
