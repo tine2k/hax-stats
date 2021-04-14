@@ -48,6 +48,14 @@ app.get('/games/:gameId', (req, res) => {
     res.send(value ? value : 404);
 });
 
+// GET REPLAY
+app.get('/games/:gameId/replay', (req, res) => {
+    const value = db.get('recordings')
+        .find({id: parseInt(req.params.gameId)})
+        .value().data;
+    res.type('application/octet-stream').send(value ? Buffer.from(value, 'base64') : 404);
+});
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
