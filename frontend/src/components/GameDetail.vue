@@ -1,25 +1,28 @@
 <template>
-  <Dialog v-bind:title="'Game ' + game.id">
+  <Dialog title="Details">
     <div class="grid grid-cols-2">
-      <span class="text-6xl text-center">{{ game.scores.red }} : {{ game.scores.blue }}</span>
-      <span class="text-center">Winner: <Winner v-bind:red="game.scores.red" v-bind:blue="game.scores.blue"></Winner></span>
+      <div class="grid grid-cols-teams justify-items-center auto-cols-max">
+        <div><Badge color="red">Team red</Badge></div>
+        <div></div>
+        <div><Badge color="blue">Team blue</Badge></div>
 
-      <div class="grid grid-cols-2 justify-items-center pt-4">
-        <div>
-          <Badge v-bind:red="true">Team red</Badge>
-          <ul class="pt-2">
-            <li class="text-center" v-for="player in game.players.filter(p => p.team === 1)" v-bind:key="player.name">{{ player.name }}</li>
-          </ul>
-        </div>
-        <div>
-          <Badge v-bind:red="false">Team blue</Badge>
-          <ul class="pt-2">
-            <li class="text-center" v-for="player in game.players.filter(p => p.team === 2)" v-bind:key="player.name">{{ player.name }}</li>
-          </ul>
-        </div>
+        <span class="text-6xl text-center pt-4">{{ game.scores.red }}</span>
+        <span class="text-6xl text-center pt-4">:</span>
+        <span class="text-6xl text-center pt-4">{{ game.scores.blue }}</span>
+
+        <ul class="pt-4">
+          <li class="text-center" v-for="player in getPlayersOfTeam(1)" v-bind:key="player.name">{{ player.name }}</li>
+        </ul>
+        <div></div>
+        <ul class="pt-4">
+          <li class="text-center" v-for="player in getPlayersOfTeam(2)" v-bind:key="player.name">{{ player.name }}</li>
+        </ul>
       </div>
 
-      <div class="grid grid-cols-2 justify-items-end">
+      <div class="grid grid-cols-2 justify-items-end items-center">
+        <span>Winner</span>
+        <span><Winner v-bind:red="game.scores.red" v-bind:blue="game.scores.blue"></Winner></span>
+
         <span>Date</span>
         <span>{{ $filters.formatDateTime(game.start, 'LLL') }}</span>
 
@@ -30,7 +33,20 @@
         <span>{{ game.scores.scoreLimit }}</span>
 
         <span>Time Limit</span>
-        <span>{{ game.scores.timeLimit }}</span>
+        <span>{{ $filters.formatDuration(game.scores.timeLimit) }}</span>
+
+        <span>Field Distribution</span>
+        <span class="grid-cols-3 grid gap-1 justify-center">
+          <Badge color="red">{{ Math.round(game.distribution[1]) }} %</Badge>
+          <Badge>{{ Math.round(game.distribution[0]) }} %</Badge>
+          <Badge color="blue">{{ Math.round(game.distribution[2]) }} %</Badge>
+        </span>
+
+        <span>Team Ball Possession</span>
+        <span class="grid-cols-2 grid gap-1">
+          <Badge color="red"> {{ Math.round(game.possTeam['1']) }} %</Badge>
+          <Badge color="blue">{{ Math.round(game.possTeam['2']) }} %</Badge>
+        </span>
       </div>
 
       <div class="pt-4">
@@ -49,6 +65,11 @@ export default {
   name: 'GameList',
   props: {
     game: Object
+  },
+  methods: {
+    getPlayersOfTeam(team) {
+      return this.game.players.filter(p => p.team === team).concat().sort((a,b) => a.name.localeCompare(b.name))
+    }
   },
   components: {
     Badge,

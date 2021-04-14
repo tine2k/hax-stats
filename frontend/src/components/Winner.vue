@@ -1,5 +1,5 @@
 <template>
-  <Badge v-bind:red="red >= blue">{{ red >= blue ? 'red' : 'blue'}}</Badge>
+  <Badge v-bind:color="(red >= blue) ? 'red' : 'blue'">{{ red >= blue ? 'red' : 'blue'}}</Badge>
 </template>
 
 <script>

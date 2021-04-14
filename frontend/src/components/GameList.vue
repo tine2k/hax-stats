@@ -1,4 +1,5 @@
 <template>
+  <KeyEvent v-on:keyup="nextGame($event)"></KeyEvent>
   <Dialog title="All Games">
     <table class="w-full">
       <thead>
@@ -13,7 +14,7 @@
       <tbody>
       <tr v-for="game in games" v-bind:key="game.id"
           v-bind:class="{ selected: selectedGame === game }"
-          @click="$emit('selectGame', game); selectedGame = game"
+          @click="selectGame(game)"
           class="cursor-pointer">
         <td class="text-right p-2">{{ game.id }}</td>
         <td class="text-center p-2">{{ $filters.formatDateTime(game.start) }}</td>
@@ -31,42 +32,57 @@
 <script>
 import Dialog from '@/components/Dialog';
 import Winner from '@/components/Winner';
-
-const axios = require('axios');
+import KeyEvent from '@/components/KeyEvent';
 
 export default {
   name: 'GameList',
   props: {
-    title: String
+    title: String,
+    games: Array,
   },
   emits: ['selectGame'],
   data() {
     return {
-      loading: false,
-      error: false,
-      games: [],
       selectedGame: null
     };
   },
-  mounted() {
-    axios.get('/games')
-        .then(response => {
-          this.games = response.data;
-          this.selectedGame = this.games[0];
-          this.$emit('selectGame', this.selectedGame);
-        })
-        .catch(() => this.error = true)
-        .finally(() => this.loading = false);
+  beforeUpdate() {
+    if (this.games.length) {
+      this.selectGame(this.games[0]);
+    }
+  },
+  methods: {
+    nextGame(e) {
+      if (!this.selectedGame) {
+        return;
+      }
+      let nextIndex = this.games.indexOf(this.selectedGame);
+      if (e.keyCode === 38) {
+        nextIndex -= 1;
+      } else if (e.keyCode === 40) {
+        nextIndex += 1;
+      }
+      if (this.games[nextIndex]) {
+        this.selectGame(this.games[nextIndex]);
+      }
+    },
+    selectGame(game) {
+      if (game) {
+        this.selectedGame = game;
+        this.$emit('selectGame', this.selectedGame);
+      }
+    }
   },
   components: {
     Dialog,
-    Winner
+    Winner,
+    KeyEvent
   }
 };
 </script>
 
 <style>
 tr.selected {
-  @apply bg-gray-200 text-hax-black;
+  @apply bg-gray-600;
 }
 </style>
