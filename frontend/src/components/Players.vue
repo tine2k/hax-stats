@@ -16,7 +16,7 @@
         <td class="text-right p-2">{{ Math.round(p.poss) }} %</td>
         <td class="text-right p-2">{{ getPasses(p.player).success }}</td>
         <td class="text-right p-2">{{ getPasses(p.player).overall }}</td>
-        <td class="text-right p-2">{{ Math.round(getPasses(p.player).overall / getPasses(p.player).success * 10) / 10 }} %</td>
+        <td class="text-right p-2">{{ Math.round(getPasses(p.player).success / getPasses(p.player).overall * 100) }} %</td>
       </tr>
       </tbody>
     </table>
