@@ -1,5 +1,5 @@
 <template>
-  <span v-if="error" class="p-4 bg-red-600">Error Loading Data!</span>
+  <ErrorMessage v-if="error"></ErrorMessage>
   <Loading v-if="loading"></Loading>
   <template v-else>
     <Menu></Menu>
@@ -9,6 +9,7 @@
 <script>
 import Menu from '@/components/layout/Menu';
 import Loading from '@/components/layout/Loading';
+import ErrorMessage from '@/components/layout/ErrorMessage';
 
 const axios = require('axios');
 
@@ -16,7 +17,8 @@ export default {
   name: 'App',
   components: {
     Menu,
-    Loading
+    Loading,
+    ErrorMessage
   },
   data() {
     return {
