@@ -9,6 +9,9 @@ module.exports = {
         'hax-black-trans': 'rgba(14,17,20,0.5)',
         'hax-team-red': '#E56E56',
         'hax-team-blue': '#5689E5',
+        'hax-button-blue': '#244967',
+        'hax-button-blue-light': '#2d5c82',
+        'hax-button-blue-lighter': '#376f9d',
       },
       gridTemplateColumns: {
         'teams': '4fr 1fr 4fr',

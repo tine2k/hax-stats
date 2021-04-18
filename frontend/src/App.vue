@@ -1,20 +1,26 @@
 <template>
-  <Menu></Menu>
-  <router-view></router-view>
+  <span v-if="error" class="p-4 bg-red-600">Error Loading Data!</span>
+  <Loading v-if="loading"></Loading>
+  <template v-else>
+    <Menu></Menu>
+    <router-view></router-view>
+  </template>
 </template>
 <script>
 import Menu from '@/components/layout/Menu';
+import Loading from '@/components/layout/Loading';
 
 const axios = require('axios');
 
 export default {
   name: 'App',
   components: {
-    Menu
+    Menu,
+    Loading
   },
   data() {
     return {
-      loading: false,
+      loading: true,
       error: false,
     };
   },

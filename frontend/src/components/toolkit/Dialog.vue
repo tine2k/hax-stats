@@ -1,12 +1,10 @@
 <template>
-  <div class="w-full rounded-md p-4 bg-hax-black text-white">
-    <div class="text-xl border-b-2 border-hax-red font-bold flex justify-between pb-1">
-      <div>
+  <div class="w-full rounded-md p-2 bg-hax-black text-white">
+    <div class="text-xl border-b-2 border-hax-red font-bold flex justify-between items-start">
+      <div class="pb-2">
         {{ title }}
       </div>
-      <div>
-        <slot name="header"></slot>
-      </div>
+      <slot name="header"></slot>
     </div>
     <div class="pt-4">
       <slot></slot>
