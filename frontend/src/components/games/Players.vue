@@ -24,7 +24,8 @@
 </template>
 
 <script>
-import Dialog from '@/components/Dialog';
+
+import Dialog from '@/components/toolkit/Dialog';
 
 export default {
   name: 'Players',

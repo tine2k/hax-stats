@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Badge from '@/components/Badge';
+import Badge from '@/components/toolkit/Badge';
 
 export default {
   name: 'Winner',

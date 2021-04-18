@@ -30,27 +30,19 @@
 </template>
 
 <script>
-import Dialog from '@/components/Dialog';
-import Winner from '@/components/Winner';
-import KeyEvent from '@/components/KeyEvent';
+
+import Dialog from '@/components/toolkit/Dialog';
+import Winner from '@/components/games/Winner';
+import KeyEvent from '@/components/games/KeyEvent';
 
 export default {
   name: 'GameList',
   props: {
     title: String,
     games: Array,
+    selectedGame: Object
   },
   emits: ['selectGame'],
-  data() {
-    return {
-      selectedGame: null
-    };
-  },
-  beforeUpdate() {
-    if (this.games.length) {
-      this.selectGame(this.games[0]);
-    }
-  },
   methods: {
     nextGame(e) {
       if (!this.selectedGame) {
@@ -67,9 +59,9 @@ export default {
       }
     },
     selectGame(game) {
+      console.log('selectGame', game);
       if (game) {
-        this.selectedGame = game;
-        this.$emit('selectGame', this.selectedGame);
+        this.$emit('selectGame', game);
       }
     }
   },

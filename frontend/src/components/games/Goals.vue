@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import Dialog from '@/components/Dialog';
-import Badge from '@/components/Badge';
+import Badge from '@/components/toolkit/Badge';
+import Dialog from '@/components/toolkit/Dialog';
 
 export default {
   name: 'Goals',

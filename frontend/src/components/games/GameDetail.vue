@@ -61,9 +61,9 @@
 </template>
 
 <script>
-import Dialog from '@/components/Dialog';
-import Winner from '@/components/Winner';
-import Badge from '@/components/Badge';
+import Badge from '@/components/toolkit/Badge';
+import Winner from '@/components/games/Winner';
+import Dialog from '@/components/toolkit/Dialog';
 
 export default {
   name: 'GameList',
