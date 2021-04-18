@@ -1,15 +1,15 @@
 <template>
   <div class="grid gap-2 p-4 grid-cols-2 items-start">
     <div>
-      <GameList v-bind:games="this.$store.state.games"
-                v-bind:selectedGame="selectedGame"
-                @select-game="this.selectedGame = $event">
+      <GameList v-bind:games="$store.state.games"
+                v-bind:selectedGame="$store.state.selectedGame"
+                @select-game="selectGame($event)">
       </GameList>
     </div>
-    <div class="grid gap-2 grid-cols-1" v-if="selectedGame">
-      <GameDetail v-bind:game="selectedGame"></GameDetail>
-      <Goals v-bind:game="selectedGame"></Goals>
-      <Players v-bind:game="selectedGame"></Players>
+    <div class="grid gap-2 grid-cols-1" v-if="$store.state.selectedGame">
+      <GameDetail v-bind:game="$store.state.selectedGame"></GameDetail>
+      <Goals v-bind:game="$store.state.selectedGame"></Goals>
+      <Players v-bind:game="$store.state.selectedGame"></Players>
     </div>
   </div>
 </template>
@@ -28,22 +28,14 @@ export default {
     Goals,
     Players
   },
-  data() {
-    return {
-      selectedGame: undefined
-    };
-  },
-  created() {
-    this.selectFirstGame();
-  },
   beforeUpdate() {
-    this.selectFirstGame();
+    if (!this.$store.state.selectedGame && this.$store.state.games && this.$store.state.games.length) {
+      this.selectGame(this.$store.state.games[0]);
+    }
   },
   methods: {
-    selectFirstGame() {
-      if (this.$store.state.games && this.$store.state.games.length && !this.selectedGame) {
-        this.selectedGame = this.$store.state.games[0];
-      }
+    selectGame(game) {
+      this.$store.commit('selectGame', game);
     }
   }
 };

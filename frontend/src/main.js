@@ -31,7 +31,6 @@ const store = createStore({
             state.games = games;
         },
         selectGame(state, game) {
-            console.log('game selected in store', game);
             state.selectedGame = game;
         }
     }

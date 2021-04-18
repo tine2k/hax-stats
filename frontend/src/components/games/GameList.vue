@@ -59,7 +59,6 @@ export default {
       }
     },
     selectGame(game) {
-      console.log('selectGame', game);
       if (game) {
         this.$emit('selectGame', game);
       }
