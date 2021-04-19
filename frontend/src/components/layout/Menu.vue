@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 flex bg-hax-black-trans">
+  <div class="flex bg-hax-black-trans">
     <MenuItem title="Games" route="overview"></MenuItem>
     <MenuItem title="High Scores" route="highscores"></MenuItem>
   </div>
