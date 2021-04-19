@@ -17,12 +17,15 @@ db.defaults({ games: [], recordings: [], idSeq: 0 }).write();
 app.use(express.json());
 app.use(express.static('frontend/dist'));
 
-const s3 = new AWS.S3({
-    accessKeyId: config.aws.accessKeyId,
-    secretAccessKey: config.aws.secretAccessKey,
-    signatureVersion: 'v4',
-    region: config.aws.region,
-});
+let s3;
+if (config.aws) {
+    s3 = config.aws && new AWS.S3({
+        accessKeyId: config.aws.accessKeyId,
+        secretAccessKey: config.aws.secretAccessKey,
+        signatureVersion: 'v4',
+        region: config.aws.region,
+    });
+}
 
 // POST GAME
 const corsOptions = {
