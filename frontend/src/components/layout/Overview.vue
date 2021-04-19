@@ -29,7 +29,6 @@ export default {
     Players
   },
   created() {
-    console.log('created');
     if (!this.$store.state.selectedGame && this.$store.state.games && this.$store.state.games.length) {
       this.selectGame(this.$store.state.games[0]);
     }

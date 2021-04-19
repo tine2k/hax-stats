@@ -10,6 +10,7 @@ import {createStore} from 'vuex';
 moment.locale('de');
 
 const routes = [
+    {path: '/', redirect: '/overview'},
     {path: '/overview', name: 'overview', component: Overview},
     {path: '/highscores', name: 'highscores', component: HighScores}
 ];

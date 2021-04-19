@@ -5,8 +5,8 @@
       <tr>
         <th class="text-left p-2">Player</th>
         <th class="text-right p-2">Ball<br />Possession</th>
-        <th class="text-right p-2">Passes<br />Success</th>
-        <th class="text-right p-2">Passes<br />Total</th>
+        <th class="text-right p-2">Passes</th>
+        <th class="text-right p-2">Touches</th>
         <th class="text-right p-2">Passes<br />Percent</th>
       </tr>
       </thead>
