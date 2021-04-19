@@ -54,6 +54,8 @@ app.post('/games', cors(corsOptions), basicAuth(config.basicAuth), (req, res) =>
             }
             console.log(`replay uploaded successfully to S3`);
         });
+    } else {
+        console.log(`replay not uploaded to S3`);
     }
 
     res.send(config.summaryUrl + nextId);
@@ -80,6 +82,10 @@ app.get('/games/:gameId/replay', (req, res) => {
         Expires: 100 //time to expire in seconds
     });
     res.redirect('https://www.haxball.com/replay?v=3#' + presignedGETURL);
+});
+
+app.get('/*', (req, res) => {
+    res.sendFile(__dirname + '/frontend/dist/index.html');
 });
 
 app.listen(port, () => {
