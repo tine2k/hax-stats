@@ -28,8 +28,13 @@ export default {
     Goals,
     Players
   },
+  props: {
+    id: String,
+  },
   created() {
-    if (!this.$store.state.selectedGame && this.$store.state.games && this.$store.state.games.length) {
+    if (this.id) {
+      this.selectGame(this.$store.state.games.filter(g => '' + g.id === this.id)[0]);
+    } else if (!this.$store.state.selectedGame && this.$store.state.games && this.$store.state.games.length) {
       this.selectGame(this.$store.state.games[0]);
     }
   },

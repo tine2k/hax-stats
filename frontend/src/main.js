@@ -12,6 +12,7 @@ moment.locale('de');
 const routes = [
     {path: '/', redirect: '/overview'},
     {path: '/overview', name: 'overview', component: Overview},
+    {path: '/overview/:id', name: 'overviewWithId', component: Overview, props: true},
     {path: '/highscores', name: 'highscores', component: HighScores}
 ];
 
