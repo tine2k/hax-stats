@@ -53,7 +53,7 @@ app.post('/games', cors(corsOptions), basicAuth(config.basicAuth), (req, res) =>
         });
     }
 
-    res.send('' + nextId);
+    res.send(config.summaryUrl + nextId);
 });
 
 // GET LIST OF GAMES

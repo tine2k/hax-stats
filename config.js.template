@@ -7,7 +7,8 @@ const config = {
         secretAccessKey: 'secret1',
         region: 'eu-central-1',
         bucketName: 'haxball-replays'
-    }
+    },
+    summaryUrl: 'http://localhost/games/'
 }
 
 module.exports = config;
