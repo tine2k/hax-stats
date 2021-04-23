@@ -43,7 +43,7 @@ export default {
                 .filter(g => this.filter(g));
             return {
               name: p,
-              won: gamesPlayed.filter(g => !this.hasWon(g, p)).length,
+              won: gamesPlayed.filter(g => this.hasWon(g, p)).length,
               lost: gamesPlayed.filter(g => !this.hasWon(g, p)).length,
               played: gamesPlayed.length
             };
@@ -54,7 +54,7 @@ export default {
           .sort((a, b) => a.per > b.per ? -1 : 1);
     },
     hasWon(g, p) {
-      return g.players.filter(pl => pl.name === p)[0].team !== (g.scores.red > g.scores.blue ? 1 : 2);
+      return g.players.filter(pl => pl.name === p)[0].team !== (g.scores.red < g.scores.blue ? 1 : 2);
     }
   }
 };

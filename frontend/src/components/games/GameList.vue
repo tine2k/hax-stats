@@ -1,14 +1,15 @@
 <template>
   <KeyEvent v-on:keyup="nextGame($event)"></KeyEvent>
   <Dialog title="All Games">
-    <table class="w-full">
+    <table class="w-full text-right">
       <thead>
       <tr>
-        <th class="text-right p-2">ID</th>
-        <th class="text-center p-2">Date</th>
-        <th class="text-center p-2">Duration</th>
-        <th class="text-right p-2">Score</th>
-        <th class="text-center p-2">Winner</th>
+        <th class="p-2">ID</th>
+        <th class="p-2">Date</th>
+        <th class="p-2">Duration</th>
+        <th class="p-2">Players</th>
+        <th class="p-2">Score</th>
+        <th class="p-2">Winner</th>
       </tr>
       </thead>
       <tbody>
@@ -16,11 +17,12 @@
           v-bind:class="{ selected: selectedGame === game }"
           @click="selectGame(game)"
           class="cursor-pointer">
-        <td class="text-right p-2">{{ game.id }}</td>
-        <td class="text-center p-2">{{ $filters.formatDateTime(game.start) }}</td>
-        <td class="text-center p-2">{{ $filters.formatDuration(game.scores.time) }}</td>
-        <td class="text-right p-2">{{ game.scores.red }} : {{ game.scores.blue }}</td>
-        <td class="text-center p-2">
+        <td class="p-2">{{ game.id }}</td>
+        <td class="p-2">{{ $filters.formatDateTime(game.start) }}</td>
+        <td class="p-2">{{ $filters.formatDuration(game.scores.time) }}</td>
+        <td class="p-2">{{ game.players.length }}</td>
+        <td class="p-2">{{ game.scores.red }} : {{ game.scores.blue }}</td>
+        <td class="p-2">
           <Winner v-bind:red="game.scores.red" v-bind:blue="game.scores.blue"></Winner>
         </td>
       </tr>
