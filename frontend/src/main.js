@@ -49,3 +49,11 @@ app.config.globalProperties.$filters = {
         return moment.utc(Math.round(value * 1000)).format('m:ss');
     }
 };
+
+
+// prevent cursor key from scrolling
+window.addEventListener("keydown", e => {
+    if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+        e.preventDefault();
+    }
+}, false);
