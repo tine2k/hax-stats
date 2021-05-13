@@ -6,6 +6,7 @@ import {createRouter, createWebHistory} from 'vue-router';
 import {createStore} from 'vuex';
 import Games from '@/components/games/Games';
 import HighScores from '@/components/highscores/HighScores';
+import {firstBy} from 'thenby';
 
 moment.locale('de');
 
@@ -34,7 +35,7 @@ const store = createStore({
     },
     mutations: {
         loadGames(state, games) {
-            state.games = games;
+            state.games = games.sort(firstBy('start', {direction: 'desc'}));
             state.filteredGames = filterGames(state.games, state.filter.lastGames, state.filter.equalTeamSize);
         },
         selectGame(state, game) {
@@ -63,7 +64,6 @@ const filterGames = (games, lastGames, equalTeamSize) => {
         const count = parseInt(lastGames.substring(0, lastGames.length - 1));
         filteredGames = filteredGames.slice(0, count);
     }
-    console.log(games.length + ' -> ' + filteredGames.length);
     return filteredGames;
 };
 

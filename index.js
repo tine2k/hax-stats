@@ -9,6 +9,7 @@ const port = 3000;
 
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
+const {firstBy} = require('thenby');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
 
@@ -63,7 +64,7 @@ app.post('/api/games', cors(corsOptions), basicAuth(config.basicAuth), (req, res
 
 // GET LIST OF GAMES
 app.get('/api/games', (req, res) => {
-    res.send(db.get('games'));
+    res.send(db.get('games').value());
 });
 
 // GET GAME
@@ -82,6 +83,31 @@ app.get('/api/games/:gameId/replay', (req, res) => {
         Expires: 100 //time to expire in seconds
     });
     res.redirect('https://www.haxball.com/replay?v=3#' + presignedGETURL);
+});
+
+// GET RATINGS
+function hasWon(g, p) {
+    return g.players.filter(pl => pl.name === p)[0].team !== (g.scores.red < g.scores.blue ? 1 : 2);
+}
+app.get('/api/ratings', (req, res) => {
+    const games = db.get('games').value();
+    const ratings = Array.from(new Set(games.flatMap(g => g.players).map(p => p.name)))
+        .map(p => {
+            const gamesPlayed = games
+                .sort(firstBy('start', {direction: 'desc'}))
+                .filter(g => g.players.filter(p => p.team === 1).length === g.players.filter(p => p.team === 2).length)
+                .slice(0, 15)
+                .filter(g => g.players.filter(pl => pl.name === p).length)
+            return {
+                name: p,
+                won: gamesPlayed.filter(g => hasWon(g, p)).length,
+                played: gamesPlayed.length
+            };
+        })
+        .filter(g => g.played > 2)
+        .map(p => ({...p, rating: p.won / (p.played)}))
+        .sort(firstBy('rating', {direction: 'desc'}).thenBy('name'))
+    res.send(ratings);
 });
 
 app.get('/*', (req, res) => {
