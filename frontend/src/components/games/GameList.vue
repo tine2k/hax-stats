@@ -1,6 +1,10 @@
 <template>
   <KeyEvent v-on:keyup="nextGame($event)"></KeyEvent>
   <Dialog title="All Games">
+    <template v-slot:header>
+      <div class="ml-12 text-white text-sm">{{gameCount}} Games</div>
+    </template>
+
     <table class="w-full text-right">
       <thead>
       <tr>
@@ -45,6 +49,11 @@ export default {
     selectedGame: Object
   },
   emits: ['selectGame'],
+  computed: {
+    gameCount() {
+      return this.$store.state.filteredGames.length;
+    }
+  },
   methods: {
     nextGame(e) {
       if (!this.selectedGame) {

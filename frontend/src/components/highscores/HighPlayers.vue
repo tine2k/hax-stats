@@ -58,7 +58,7 @@ export default {
       );
     },
     avgPoss(p) {
-      const touches = this.$store.state.games
+      const touches = this.$store.state.filteredGames
           .map(g => g.possPlayer.filter(pa => pa.player === p))
           .map(pa => pa[0])
           .filter(pa => !!pa)
@@ -66,7 +66,7 @@ export default {
       return touches.length && touches.reduce((a, b) => a + b) / touches.length;
     },
     avgPasses(p) {
-      const touches = this.$store.state.games
+      const touches = this.$store.state.filteredGames
           .map(g => g.passes.filter(pa => pa.player === p))
           .map(pa => pa[0])
           .filter(pa => !!pa)

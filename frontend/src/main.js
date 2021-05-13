@@ -63,6 +63,7 @@ const filterGames = (games, lastGames, equalTeamSize) => {
         const count = parseInt(lastGames.substring(0, lastGames.length - 1));
         filteredGames = filteredGames.slice(0, count);
     }
+    console.log(games.length + ' -> ' + filteredGames.length);
     return filteredGames;
 };
 
