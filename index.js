@@ -32,8 +32,8 @@ const corsOptions = {
     origin: 'https://www.haxball.com',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
-app.options('/games', cors());
-app.post('/games', cors(corsOptions), basicAuth(config.basicAuth), (req, res) => {
+app.options('/api/games', cors());
+app.post('/api/games', cors(corsOptions), basicAuth(config.basicAuth), (req, res) => {
     const nextId = db.get('idSeq').value();
     db.update('idSeq', n => n + 1).write();
     db.get('games')
@@ -62,12 +62,12 @@ app.post('/games', cors(corsOptions), basicAuth(config.basicAuth), (req, res) =>
 });
 
 // GET LIST OF GAMES
-app.get('/games', (req, res) => {
+app.get('/api/games', (req, res) => {
     res.send(db.get('games'));
 });
 
 // GET GAME
-app.get('/games/:gameId', (req, res) => {
+app.get('/api/games/:gameId', (req, res) => {
     const value = db.get('games')
         .find({id: parseInt(req.params.gameId)})
         .value();
@@ -75,7 +75,7 @@ app.get('/games/:gameId', (req, res) => {
 });
 
 // GET REPLAY
-app.get('/games/:gameId/replay', (req, res) => {
+app.get('/api/games/:gameId/replay', (req, res) => {
     const presignedGETURL = s3.getSignedUrl('getObject', {
         Bucket: config.aws.bucketName,
         Key: req.params.gameId + '.hbr2',
