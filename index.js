@@ -89,7 +89,8 @@ app.get('/api/games/:gameId/replay', (req, res) => {
 function hasWon(g, p) {
     return g.players.filter(pl => pl.name === p)[0].team !== (g.scores.red < g.scores.blue ? 1 : 2);
 }
-app.get('/api/ratings', (req, res) => {
+app.options('/api/ratings', cors());
+app.get('/api/ratings', cors(corsOptions), (req, res) => {
     const games = db.get('games').value();
     const ratings = Array.from(new Set(games.flatMap(g => g.players).map(p => p.name)))
         .map(p => {
