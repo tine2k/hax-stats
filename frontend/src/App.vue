@@ -27,7 +27,7 @@ export default {
     };
   },
   mounted() {
-    axios.get('/games')
+    axios.get('/api/games')
         .then(response => {
           this.$store.commit('loadGames', response.data.reverse());
         })

@@ -1,7 +1,7 @@
 <template>
   <Dialog title="Details">
     <template v-slot:header>
-      <a class="font-bold bg-hax-button-blue mb-2 p-1 pr-2 pl-2 text-sm inline-block hover:bg-hax-button-blue-light" v-bind:href="'/games/' + game.id + '/replay'" target="_blank">Watch Replay</a>
+      <a class="font-bold bg-hax-button-blue p-1 pr-2 pl-2 text-sm inline-block hover:bg-hax-button-blue-light" v-bind:href="'/api/games/' + game.id + '/replay'" target="_blank">Watch Replay</a>
     </template>
 
     <div class="grid grid-cols-2">

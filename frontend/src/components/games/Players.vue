@@ -27,7 +27,7 @@
 
 import Dialog from '@/components/toolkit/Dialog';
 import {firstBy} from 'thenby';
-import SortHeader from '@/components/layout/SortHeader';
+import SortHeader from '@/components/toolkit/SortHeader';
 
 export default {
   name: 'Players',

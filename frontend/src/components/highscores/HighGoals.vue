@@ -3,11 +3,11 @@
     <table class="w-full">
       <thead>
       <tr>
-        <SortHeader field="name" :currently-sorted-by="sortField" v-on:sort="sort($event)" align="left">Player</SortHeader>
-        <SortHeader field="own" :currently-sorted-by="sortField" v-on:sort="sort($event)">🙀 OwnGoal</SortHeader>
-        <SortHeader field="assists" :currently-sorted-by="sortField" v-on:sort="sort($event)">💪 Assist</SortHeader>
-        <SortHeader field="goals" :currently-sorted-by="sortField" v-on:sort="sort($event)">⚽️ Goals</SortHeader>
-        <SortHeader field="goalsPerMatch" :currently-sorted-by="sortField" v-on:sort="sort($event)">⚽️ Goals/Match</SortHeader>
+        <SortHeader field="name" :currently-sorted-by="sortField" v-on:sort="updateSortFields($event)" align="left">Player</SortHeader>
+        <SortHeader field="own" :currently-sorted-by="sortField" v-on:sort="updateSortFields($event)">🙀 OwnGoal</SortHeader>
+        <SortHeader field="assists" :currently-sorted-by="sortField" v-on:sort="updateSortFields($event)">💪 Assist</SortHeader>
+        <SortHeader field="goals" :currently-sorted-by="sortField" v-on:sort="updateSortFields($event)">⚽️ Goals</SortHeader>
+        <SortHeader field="goalsPerMatch" :currently-sorted-by="sortField" v-on:sort="updateSortFields($event)">⚽️ Goals/Match</SortHeader>
       </tr>
       </thead>
       <tbody>
@@ -27,7 +27,7 @@
 
 import Dialog from '@/components/toolkit/Dialog';
 import {firstBy} from 'thenby';
-import SortHeader from '@/components/layout/SortHeader';
+import SortHeader from '@/components/toolkit/SortHeader';
 
 export default {
   name: 'HighGoals',
@@ -37,16 +37,13 @@ export default {
   },
   data() {
     return {
-      rows: this.initData(),
-      sortField: 'goalsPerMatch'
+      sortField: 'goalsPerMatch',
+      sortAsc: false,
     };
   },
-  created() {
-    this.sort([this.sortField, false]);
-  },
-  methods: {
-    initData() {
-      return Array.from(new Set(this.$store.state.games.flatMap(g => g.players).map(p => p.name)))
+  computed: {
+    rows() {
+      return this.sort(Array.from(new Set(this.$store.state.filteredGames.flatMap(g => g.players).map(p => p.name)))
           .map(p => ({
             name: p,
             own: this.countGoals(go => go.scorer === p && go.ownGoal),
@@ -54,21 +51,26 @@ export default {
             goals: this.countGoals(go => go.scorer === p && !go.ownGoal),
             goalsPerMatch: this.countGoals(go => go.scorer === p && !go.ownGoal) / this.countGamesPlayed(p)
           }))
-          .filter(x => x.goals > 0);
-    },
-    sort(field) {
+          .filter(x => x.goals > 0), [this.sortField, this.sortAsc]);
+    }
+  },
+  methods: {
+    updateSortFields(field) {
       this.sortField = field[0];
-      this.rows = this.rows.sort(
-          firstBy(this.sortField, {ignoreCase: true, direction: (field[1] ? 'asc' : 'desc')})
+      this.sortAsc = field[1];
+    },
+    sort(rows, field) {
+      return rows.sort(
+          firstBy(field[0], {ignoreCase: true, direction: (field[1] ? 'asc' : 'desc')})
               .thenBy('goals', {direction: (field[1] ? 'asc' : 'desc')})
               .thenBy('name', {direction: (field[1] ? 'asc' : 'desc')})
       );
     },
     countGoals(goalFilter) {
-      return this.$store.state.games.map(g => g.goals.filter(goalFilter).length).reduce((a, b) => a + b, 0);
+      return this.$store.state.filteredGames.map(g => g.goals.filter(goalFilter).length).reduce((a, b) => a + b, 0);
     },
     countGamesPlayed(p) {
-      return this.$store.state.games.filter(g => g.players.filter(pl => pl.name === p).length).length;
+      return this.$store.state.filteredGames.filter(g => g.players.filter(pl => pl.name === p).length).length;
     }
   }
 };

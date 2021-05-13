@@ -1,7 +1,7 @@
 module.exports = {
   devServer: {
     proxy: {
-      '^/games': {
+      '^/api': {
         target: 'http://localhost:3000',
         changeOrigin: true
       },

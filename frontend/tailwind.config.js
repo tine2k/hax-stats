@@ -12,6 +12,9 @@ module.exports = {
         'hax-button-blue': '#244967',
         'hax-button-blue-light': '#2d5c82',
         'hax-button-blue-lighter': '#376f9d',
+        blue: {
+          600: '#c13535',
+        },
       },
       gridTemplateColumns: {
         'teams': '4fr 1fr 4fr',
@@ -21,5 +24,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms'),],
 }

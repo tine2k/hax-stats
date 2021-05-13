@@ -1,7 +1,7 @@
 <template>
   <div class="w-full rounded-md p-2 bg-hax-black text-white">
-    <div class="text-xl border-b-2 border-hax-red font-bold flex justify-between items-start">
-      <div class="pb-2">
+    <div class="text-xl border-b-2 border-hax-red font-bold flex justify-between items-start items-center pb-2">
+      <div class="">
         {{ title }}
       </div>
       <slot name="header"></slot>

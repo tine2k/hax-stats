@@ -21,7 +21,7 @@ import Players from '@/components/games/Players';
 import GameList from '@/components/games/GameList';
 
 export default {
-  name: 'Overview',
+  name: 'Games',
   components: {
     GameList,
     GameDetail,

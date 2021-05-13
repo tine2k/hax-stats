@@ -3,9 +3,9 @@
     <table class="w-full">
       <thead>
       <tr>
-        <SortHeader field="name" :currently-sorted-by="sortField" v-on:sort="sort($event)" align="left">Player</SortHeader>
-        <SortHeader field="passes" :currently-sorted-by="sortField" v-on:sort="sort($event)">Average<br>Touches/Game</SortHeader>
-        <SortHeader field="poss" :currently-sorted-by="sortField" v-on:sort="sort($event)">Average<br>Possession/Game</SortHeader>
+        <SortHeader field="name" :currently-sorted-by="sortField" v-on:sort="updateSortFields($event)" align="left">Player</SortHeader>
+        <SortHeader field="passes" :currently-sorted-by="sortField" v-on:sort="updateSortFields($event)">Average<br>Touches/Game</SortHeader>
+        <SortHeader field="poss" :currently-sorted-by="sortField" v-on:sort="updateSortFields($event)">Average<br>Possession/Game</SortHeader>
       </tr>
       </thead>
       <tbody>
@@ -23,7 +23,7 @@
 
 import Dialog from '@/components/toolkit/Dialog';
 import {firstBy} from 'thenby';
-import SortHeader from '@/components/layout/SortHeader';
+import SortHeader from '@/components/toolkit/SortHeader';
 
 export default {
   name: 'HighPlayers',
@@ -31,27 +31,29 @@ export default {
   props: {},
   data() {
     return {
-      rows: this.initData(),
-      sortField: 'poss'
+      sortField: 'poss',
+      sortAsc: false,
     };
   },
-  created() {
-    this.sort([this.sortField, false]);
-  },
-  methods: {
-    initData() {
-      return Array.from(new Set(this.$store.state.games.flatMap(g => g.players).map(p => p.name)))
+  computed: {
+    rows() {
+      return this.sort(Array.from(new Set(this.$store.state.filteredGames.flatMap(g => g.players).map(p => p.name)))
           .map(p => ({
             name: p,
             poss: this.avgPoss(p),
             passes: this.avgPasses(p),
           }))
-          .filter(x => x.passes > 0);
-    },
-    sort(field) {
+          .filter(x => x.passes > 0), [this.sortField, this.sortAsc]);
+    }
+  },
+  methods: {
+    updateSortFields(field) {
       this.sortField = field[0];
-      this.rows = this.rows.sort(
-          firstBy(this.sortField, {ignoreCase: true, direction: (field[1] ? 'asc' : 'desc')})
+      this.sortAsc = field[1];
+    },
+    sort(rows, field) {
+      return rows.sort(
+          firstBy(field[0], {ignoreCase: true, direction: (field[1] ? 'asc' : 'desc')})
               .thenBy('name', {direction: (field[1] ? 'asc' : 'desc')})
       );
     },
