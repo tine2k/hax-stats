@@ -97,7 +97,7 @@ app.get('/api/ratings', cors(corsOptions), (req, res) => {
             const gamesPlayed = games
                 .sort(firstBy('start', {direction: 'desc'}))
                 .filter(g => g.players.filter(p => p.team === 1).length === g.players.filter(p => p.team === 2).length)
-                .slice(0, 15)
+                .slice(0, 20)
                 .filter(g => g.players.filter(pl => pl.name === p).length)
             return {
                 name: p,

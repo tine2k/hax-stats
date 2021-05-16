@@ -27,7 +27,7 @@ const store = createStore({
             games: null,
             selectedGame: null,
             filter: {
-                lastGames: '15g',
+                lastGames: '20g',
                 equalTeamSize: true,
             },
             filteredGames: null
