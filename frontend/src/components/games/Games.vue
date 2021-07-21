@@ -3,6 +3,8 @@
     <div>
       <GameList v-bind:games="$store.state.games"
                 v-bind:selectedGame="$store.state.selectedGame"
+                selection-enabled="true"
+                title="All Games"
                 @select-game="selectGame($event)">
       </GameList>
     </div>

@@ -4,7 +4,7 @@
       <a class="font-bold bg-hax-button-blue p-1 pr-2 pl-2 text-sm inline-block hover:bg-hax-button-blue-light" v-bind:href="'/api/games/' + game.id + '/replay'" target="_blank">Watch Replay</a>
     </template>
 
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-2 items-center">
       <div class="grid grid-cols-teams justify-items-center auto-cols-max">
         <div><Badge color="red">Team red</Badge></div>
         <div></div>
@@ -23,7 +23,7 @@
         </ul>
       </div>
 
-      <div class="grid grid-cols-2 justify-items-end items-center">
+      <div class="grid grid-cols-2 gap-1 justify-items-end items-center">
         <span>Winner</span>
         <span><Winner v-bind:red="game.scores.red" v-bind:blue="game.scores.blue"></Winner></span>
 
@@ -32,6 +32,9 @@
 
         <span>Duration</span>
         <span>{{ $filters.formatDuration(game.scores.time) }}</span>
+
+        <span v-if="game.stadium">Stadium</span>
+        <span v-if="game.stadium">{{ game.stadium }}</span>
 
         <span>Score Limit</span>
         <span>{{ game.scores.scoreLimit }}</span>

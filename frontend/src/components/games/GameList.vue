@@ -1,8 +1,8 @@
 <template>
   <KeyEvent v-on:keyup="nextGame($event)"></KeyEvent>
-  <Dialog title="All Games">
+  <Dialog v-bind:title="title">
     <template v-slot:header>
-      <div class="ml-12 text-white text-sm">{{gameCount}} Games</div>
+      <div class="ml-12 text-white text-sm">{{games.length}} Games</div>
     </template>
 
     <table class="w-full text-right">
@@ -18,9 +18,8 @@
       </thead>
       <tbody>
       <tr v-for="game in games" v-bind:key="game.id"
-          v-bind:class="{ selected: selectedGame === game }"
-          @click="selectGame(game)"
-          class="cursor-pointer">
+          v-bind:class="{ selected: selectedGame === game, 'cursor-pointer': this.selectionEnabled }"
+          @click="selectGame(game)">
         <td class="p-2">{{ game.id }}</td>
         <td class="p-2">{{ $filters.formatDateTime(game.start) }}</td>
         <td class="p-2">{{ $filters.formatDuration(game.scores.time) }}</td>
@@ -46,7 +45,8 @@ export default {
   props: {
     title: String,
     games: Array,
-    selectedGame: Object
+    selectedGame: Object,
+    selectionEnabled: Boolean
   },
   emits: ['selectGame'],
   computed: {

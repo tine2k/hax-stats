@@ -53,9 +53,9 @@ const store = createStore({
 });
 
 const filterGames = (games, lastGames, equalTeamSize) => {
-    let filteredGames = games;
+    let filteredGames = games.filter(g => g.scores.time > 15);
     if (equalTeamSize) {
-        filteredGames = games.filter(g => g.players.filter(p => p.team === 1).length === g.players.filter(p => p.team === 2).length);
+        filteredGames = filteredGames.filter(g => g.players.filter(p => p.team === 1).length === g.players.filter(p => p.team === 2).length);
     }
     if (lastGames.endsWith('d')) {
         const days = parseInt(lastGames.substring(0, lastGames.length - 1));
