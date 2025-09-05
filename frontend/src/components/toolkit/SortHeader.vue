@@ -48,6 +48,8 @@ export default {
 </script>
 
 <style>
+@reference "tailwindcss";
+
 .sort-header {
   @apply cursor-pointer select-none;
 }

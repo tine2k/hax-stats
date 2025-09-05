@@ -1,6 +1,5 @@
-module.exports = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+export default {
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -13,16 +12,15 @@ module.exports = {
         'hax-button-blue-light': '#2d5c82',
         'hax-button-blue-lighter': '#376f9d',
         blue: {
-          600: '#c13535',
+          600: '#c13535', // careful: overrides Tailwind’s blue-600
         },
       },
       gridTemplateColumns: {
-        'teams': '4fr 1fr 4fr',
-      }
+        teams: '4fr 1fr 4fr',
+      },
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [require('@tailwindcss/forms'),],
+  plugins: [
+    import('@tailwindcss/forms'), // works in v4 ESM config
+  ],
 }

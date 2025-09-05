@@ -84,6 +84,8 @@ export default {
 </script>
 
 <style>
+@reference "tailwindcss";
+
 tr.selected {
   @apply bg-gray-600;
 }

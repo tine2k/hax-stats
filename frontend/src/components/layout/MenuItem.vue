@@ -19,7 +19,9 @@ export default {
 </script>
 
 <style>
+@reference "tailwindcss";
+
 .router-link-active > div, .router-link-active > div:hover {
-  @apply bg-hax-black-trans font-bold text-yellow-200;
+  @apply font-bold text-yellow-200;
 }
 </style>
