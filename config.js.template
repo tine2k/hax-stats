@@ -2,13 +2,9 @@ const config = {
     basicAuth: {
         users: { 'myuser': 'mypassword' }
     },
-    aws: {
-        accessKeyId: 'key1',
-        secretAccessKey: 'secret1',
-        region: 'eu-central-1',
-        bucketName: 'haxball-replays'
-    },
-    summaryUrl: 'http://localhost/games/'
+    privatekey: '/privkey.pem',
+    certificate: '/fullchain.pem',
+    baseUrl: 'https://my-secure-domain/'
 }
 
 module.exports = config;
