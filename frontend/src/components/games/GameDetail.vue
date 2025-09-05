@@ -5,7 +5,7 @@
     </template>
 
     <div class="grid grid-cols-2 items-center">
-      <div class="grid grid-cols-teams justify-items-center auto-cols-max">
+      <div class="grid grid-cols-[4fr_1fr_4fr] justify-items-center auto-cols-max">
         <div><Badge color="red">Team red</Badge></div>
         <div></div>
         <div><Badge color="blue">Team blue</Badge></div>

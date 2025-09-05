@@ -1,6 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+    --color-hax-red: #c13535;
+    --color-hax-black: #1A2125;
+    --color-hax-black-trans: rgba(14,17,20,0.5);
+    --color-hax-team-red: #E56E56;
+    --color-hax-team-blue: #5689E5;
+    --color-hax-button-blue: #244967;
+    --color-hax-button-blue-light: #2d5c82;
+    --color-hax-button-blue-lighter: #376f9d;
+    --color-blue-600: #c13535;
+}
 
 html {
     -webkit-box-sizing: border-box;
