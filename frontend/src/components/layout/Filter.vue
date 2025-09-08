@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center select-none">
-    <select class="ml-12 text-white text-sm" :value="filter.lastGames" @change="updateFilterLastGames">
+    <select class="ml-12 text-white text-sm border-b-hax-red p-1 border-1" :value="filter.lastGames" @change="updateFilterLastGames">
       <option value="20g">Last 20 games</option>
       <option value="40g">Last 40 games</option>
       <option value="14d">Last 14 days</option>

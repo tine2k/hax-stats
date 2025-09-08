@@ -5,7 +5,7 @@ const config = require('./config');
 const fs = require('fs');
 const https = require('https');
 
-var options = {
+const options = {
     key: fs.readFileSync(config.privatekey),
     cert: fs.readFileSync(config.certificate),
 };
@@ -112,6 +112,6 @@ app.get('/*', (req, res) => {
 
 app.listen(plainPort, () => { console.log(`Express server listening on plain port ${plainPort}`) } );
 
-var server = https.createServer(options, app).listen(sslPort, () => {
+https.createServer(options, app).listen(sslPort, () => {
   console.log(`Express server listening on SSL port ${sslPort}`);
 });

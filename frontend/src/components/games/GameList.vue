@@ -16,7 +16,7 @@
         <th class="p-2">Winner</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody class="h-full ">
       <tr v-for="game in games" v-bind:key="game.id"
           v-bind:class="{ selected: selectedGame === game, 'cursor-pointer': this.selectionEnabled }"
           @click="selectGame(game)">

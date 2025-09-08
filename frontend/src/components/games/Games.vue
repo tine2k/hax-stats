@@ -1,6 +1,6 @@
 <template>
-  <div class="grid gap-2 p-4 grid-cols-2 items-start">
-    <div>
+  <div class="grid grid-rows-[100%_1fr] flex-1 gap-2 p-4 grid-cols-2 items-start overflow-hidden">
+    <div class="h-full">
       <GameList v-bind:games="$store.state.games"
                 v-bind:selectedGame="$store.state.selectedGame"
                 v-bind:selection-enabled="true"
